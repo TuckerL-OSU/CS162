@@ -1,0 +1,31 @@
+void Character::battle(Character *char1, Character *char2) {
+	// tracks who is attacking
+	bool turn = true;
+	int dmg = 0;
+	int def = 0;
+	int att = 0;
+	int arm = 0;
+
+	// randomly chooses 0 or 1 to go first
+	turn = rand() % 2;
+
+	while (!(char1->getStrength_Points() <= 0) && !(char2->getStrength_Points() <= 0)) {
+		//dmg = dmg <= 0 ? 0 : dmg;		
+		if (turn) {
+			cout << char1->getName() << " attacks with dice roll of: ";
+			att = char1->attackRoll();
+			cout << ".\n" << char1->getName() << " has an attack of: " << att << endl;
+			cout << char2->getName() << " defends with dice roll of: ";
+			def = char2->defenseRoll();
+			cout << ".\n" << char2->getName() << " has a defense of: " << def << endl;
+			arm = char2->getArmor();
+			cout << char2->getName() << " has an armor rating of: " << arm << endl;
+			dmg = att - def - arm;
+			cout << char1->getName() << " actually did " << dmg << " damage to " << char2->getName();
+			cout << ".\n" << char2->getName() << " had " << char2->getStrength_Points() << " strength points, and now has ";
+			char2->setStrength_Points(char2->getStrength_Points() - dmg);
+			cout << char2->getStrength_Points() << " strength points left." << endl;
+		}
+
+	}
+}

@@ -1,0 +1,173 @@
+#include "DoublyLinkedList.hpp"
+
+DoublyLinkedList::DoublyLinkedList() {
+	size = 0;
+	head = new Node;
+	tail = new Node;
+
+	head->next = tail;
+	tail->prev = head;
+}
+
+DoublyLinkedList::~DoublyLinkedList() {
+	//temp = new Node;
+	//while (size > 0) {
+	//	temp = nullptr;
+	//	//temp = head;
+	//	//delete head;
+	//	//head = temp->next;
+	//	size--;
+	//}
+	//for (int i = 0; i < size; i++) {
+	//	temp = head;
+
+	//	head = temp->next;
+	//	delete temp;
+	//}
+	//delete temp;
+	delete head;
+	delete tail;
+}
+
+void DoublyLinkedList::insertHead(int data) {
+	//temp = new Node;
+
+	if (isEmpty()) {
+		temp.setVal(data);
+		head = &temp;
+		tail = &temp;
+		++size;
+	}
+	else {
+		temp.setVal(data);
+		temp.next = head;
+		head->prev = &temp;
+		head = &temp;
+		++size;
+	}
+	//delete temp;
+}
+
+void DoublyLinkedList::insertTail(int data) {
+	//temp = new Node;
+
+	if (isEmpty()) {
+		temp.setVal(data);
+		head = &temp;
+		tail = &temp;
+		++size;
+	}
+	else {
+		temp.setVal(data);
+		tail->next = &temp;
+		temp.prev = tail;
+		tail = &temp;
+		++size;
+	}
+	//delete temp;
+}
+
+void DoublyLinkedList::deleteFirst() {	
+	if (!isEmpty()) {
+		//temp = new Node;
+		temp = *head->next;
+		//delete this->temp->prev;
+		//delete temp.prev;
+		temp.prev = nullptr;
+		head = &temp;
+		--size;
+	}
+	else {
+		cout << "The list is empty! ";
+	}
+	
+}
+
+void DoublyLinkedList::deleteLast() {
+	if (!isEmpty()) {
+		//temp = new Node;
+		temp = *tail->prev;
+		//delete temp->next;
+		temp.next = nullptr;
+		tail = &temp;
+		--size;
+	}
+	else {
+		cout << "The list is empty! ";
+	}
+	
+}
+
+void DoublyLinkedList::forwardTraverse() {
+	//temp = new Node;
+
+	temp = *head;
+
+	if (!isEmpty()) {
+		for (int i = 0; i < size; i++) {
+			if (i + 1 == size) {
+				cout << temp.val << endl;
+			}
+			else {
+				cout << temp.val << " -> ";
+			}
+			temp = *temp.next;
+		}
+	}
+	else {
+		cout << "There are no values to traverse! " << endl;
+	}
+	cout << endl;
+
+
+}
+
+void DoublyLinkedList::reverseTraverse() {
+	//temp = new Node;
+
+	temp = *tail;
+
+	if (!isEmpty()) {
+		for (int i = 0; i < size; i++) {
+			if (i + 1 == size) {
+				cout << temp.val << endl;
+			}
+			else {
+				cout << temp.val << " -> ";
+			}
+			temp = *temp.prev;
+		}
+	}
+	else {
+		cout << "There are no values to traverse! " << endl;
+	}
+	cout << endl;
+
+
+}
+
+void DoublyLinkedList::printValAtHead() {
+	if (!isEmpty()) {
+		cout << "Value of the node the head is pointing to: " << head->getVal() << endl;
+	}
+	else {
+		cout << "There are no nodes!" << endl;
+	}
+}
+
+void DoublyLinkedList::printValAtTail() {
+	if (!isEmpty()) {
+		cout << "Value of the node the tail is pointing to: " << tail->getVal() << endl;
+	}
+	else {
+		cout << "There are no nodes!" << endl;
+	}
+}
+
+bool DoublyLinkedList::isEmpty() {
+	if (size == 0) {
+		return true;
+	}
+	else
+		return false;
+}
